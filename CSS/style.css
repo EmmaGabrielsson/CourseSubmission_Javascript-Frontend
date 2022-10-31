@@ -15,6 +15,7 @@
     --buy-btn-hover: rgb(0, 86, 0);
     --text-color: #171427;
     --bg-color: #fff;
+    --text-logo: rgb(0, 202, 209);
 }
 
 img {
@@ -49,7 +50,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .logo {
@@ -58,12 +59,36 @@ header {
     font-weight: 400;
     margin-left: 1rem;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.logo:hover {
+    color: var(--text-logo) ;
+    font-size: 1.4rem;
+}
+
+.logo img {
+    width: 2rem;
+}
+
+.logo .bi-arrow-up {
+    display: none;
+}
+
+.logo .bi-arrow-up .active {
+    display: block;
 }
 
 #cart-icon {
     font-size: 1.8rem;
     cursor: pointer;
+    padding: 1.5px 3px;
     margin-right: 1rem;
+    transition: .2s;
+}
+
+#cart-icon:hover {
+    border: 2px solid var(--text-logo);
 }
 
 .cart {
@@ -130,6 +155,11 @@ text-transform: uppercase;
     font-size: 24px;
     color: var(--main-color);
     cursor: pointer;
+    transition: 0.55s;
+}
+
+.cart-remove:hover {
+    color: var(--text-color);
 }
 
 .total {
@@ -171,6 +201,11 @@ text-transform: uppercase;
     font-size: 2rem;
     color: var(--text-color);
     cursor: pointer;
+    transition: 0.2s;
+}
+
+#close-cart:hover {
+    font-size: 2.5rem;
 }
 
 .section-title {
@@ -226,9 +261,9 @@ text-transform: uppercase;
     color: var(--bg-color);
     padding: 10px;
     cursor: pointer;
-
 }
 
 .add-cart:hover {
-    background: hsl(249, 32%, 17%);
+    background: var(--text-logo);
+    color: var(--text-color)
 }
