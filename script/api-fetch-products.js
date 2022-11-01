@@ -20,7 +20,7 @@ let productData = fetch(url)
             output += `   
             <div class="product-box">
                 <img src="${productImage}" alt="" class="product-img">
-                <h2 class="product-title">${productId + " " + beerProductName}</h2>
+                <h2 class="product-title">${productId + ". " + beerProductName}</h2>
                 <p class="card-text">${productDescription}</p>
                 <button id="btn-more-info" type="button" class="btn btn-secondary me-3">
                     More info
@@ -37,10 +37,10 @@ let productData = fetch(url)
 window.addEventListener("scroll", () => {
     const scrolls = window.scrollY;
     let arrow = document.querySelector(".bi-arrow-up");
-    if (scrolls >= 1000) {
+    if (scrolls >= 700) {
         arrow.classList.add("active");
     }
-    else if (scrolls < 1000) {
+    else if (scrolls < 700) {
         arrow.classList.remove("active");
     }
 });
