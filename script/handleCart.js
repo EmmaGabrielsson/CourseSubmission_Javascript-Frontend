@@ -1,4 +1,3 @@
-import * as api from "./api-fetch-products.js";
 
 const showCart = document.querySelector("#cart-icon");
 const cart = document.querySelector(".cart");

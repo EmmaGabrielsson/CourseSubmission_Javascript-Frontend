@@ -75,8 +75,8 @@ header {
     display: none;
 }
 
-.logo .bi-arrow-up .active {
-    display: block;
+.logo .bi-arrow-up.active {
+    display: inline;
 }
 
 #cart-icon {
@@ -227,7 +227,6 @@ text-transform: uppercase;
 
 .product-box {
     position: relative;
-
 }
 
 .product-box:hover {
@@ -238,7 +237,8 @@ text-transform: uppercase;
 
 .product-img {
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: contain;
     margin-bottom: 0.5rem;
 }
 
@@ -247,6 +247,13 @@ text-transform: uppercase;
     font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
+}
+
+.card-text {
+    height: 200px;
+    height: 100px;
+    font-size: .9rem;
+    overflow-y: scroll;
 }
 
 .price {
