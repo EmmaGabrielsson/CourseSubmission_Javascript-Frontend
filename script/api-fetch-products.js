@@ -1,5 +1,5 @@
+//Kod för att hämta data/information om produkterna från ett api och visa dem på sidan
 
-//Kod för att hämta information om produkterna från ett api och visa dem på sidan
 const productCards = document.querySelector('.shop-content');
 let outputBox = "";
 
@@ -12,9 +12,9 @@ let productData = fetch(url)
             const productId = productData[i].id;
             const productImage = productData[i].image_url;
             const beerProductName = productData[i].name;
+            const price = Math.floor(Math.random() * 100);
             const productDescription = productData[i].description;
             const tips = productData[i].brewers_tips;
-            const price = Math.floor(Math.random() * 100);
 
             outputBox += `   
             <div class="product-box">
@@ -32,14 +32,3 @@ let productData = fetch(url)
     });
 
 
-//Funktion för att visa arrow-up vid företagsnamn när man scrollar ner på webbsidan.
-window.addEventListener("scroll", () => {
-    const scrolls = window.scrollY;
-    let arrow = document.querySelector(".bi-arrow-up");
-    if (scrolls >= 700) {
-        arrow.classList.add("active");
-    }
-    else if (scrolls < 700) {
-        arrow.classList.remove("active");
-    }
-});

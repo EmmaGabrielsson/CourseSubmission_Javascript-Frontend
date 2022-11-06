@@ -4,7 +4,7 @@ const showCart = document.querySelector("#cart-icon");
 const cart = document.querySelector(".cart");
 const closeCartBtn = document.querySelector("#close-cart");
 const addToCart = document.querySelectorAll(".add-cart");
-const showAddedProducts = document.getElementsByClassName("cart-content");
+const showAddedProducts = document.querySelector(".cart-content");
 const removeFromCart = document.querySelectorAll(".cart-remove");
 
 function openCart() {
@@ -17,39 +17,39 @@ function closeCart() {
 }
 closeCartBtn.addEventListener("click", closeCart);
 
-function storeProducts() {
-    localStorage.setItem(productData[i].id, JSON.stringify(productData[i]));
-}
-addToCart.onsubmit = storeProducts;
-
 function showStoredProductsInCart() {
     let productId;
-    if (localStorage.length !== 0){
-        Object.keys(localStorage).forEach(function (key) {
-            productId = localStorage.getItem(key);
-            let img = addToCart.elementSibling(".product-img");
-            let title = addToCart.elementSibling(".product-title");
-            let price = addToCart.elementSibling(".price");
-            let productContent = `
-            <img src="${img}" alt="" class="cart-img">
-            <div class="detail-box">
-                <div class="cart-title-product">${title}</div>
-                <div class="cart-price">${price}</div>
-                <label for="quantity">Antal</label>
-                <input name="quantity" title="quantity" type="number" value="1" class="cart-quantity">
-            </div>
-            <i class="bi bi-trash cart-remove" title="delete from cart"></i>`;
-
-            let contentContainer = document.createElement("div");
-            contentContainer.classList.add("cart-box");
-            contentContainer.appendChild(productContent);
-            showAddedProducts = productContent.innerHTML;
-            });
+    if (localStorage.length == 0) {
+        showAddedProducts.innerText = "No products added to cart yet!";
+        showAddedProducts.style.textAlign = "center";
     }
     else {
-        showAddedProducts.innerText = "No products added to cart yet.";
+        Object.keys(localStorage).forEach(function(keys) {
+            productId = localStorage.getItem(keys);
+            const storedProduct = JSON.parse(productId);
+            let contentContainer = document.createElement("div");
+            contentContainer.classList.add("cart-box");
+            let productContent = `
+            <img src="${storedProduct[1]}" alt="" class="cart-img">
+            <div class="detail-box">
+            <div class="cart-title-product">${storedProduct[2]}</div>
+            <div class="cart-price">${storedProduct[3]}</div>
+            <label for="quantity">Antal</label>
+            <input name="quantity" title="quantity" type="number" value="1" class="cart-quantity">
+            </div>
+            <i class="bi bi-trash cart-remove" title="delete from cart"></i>`;
+            
+            console.log(productContent);
+            contentContainer.appendChild(productContent);
+            showAddedProducts = productContent.innerHTML;
+        });
     }
 }
 
+function storeProducts() {
+    localStorage.setItem(productData[i].id, JSON.stringify(productData));
+}
 
+addToCart.forEach.onclick = storeProducts;
+showStoredProductsInCart();
 
