@@ -49,7 +49,7 @@ header {
 .nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
 }
 
@@ -63,7 +63,7 @@ header {
 }
 
 .logo:hover {
-    color: var(--text-logo) ;
+    color: var(--text-logo);
     font-size: 1.4rem;
     text-shadow: 1px 1px 2px var(--text-color);
 }
@@ -80,13 +80,19 @@ header {
     display: inline;
 }
 
+#show-all {
+    font-size: 15px;
+    padding: 0;
+    margin: 10px 0;
+}
+
 #cart-icon {
     font-size: 1.8rem;
     cursor: pointer;
     text-decoration: none;
     color: var(--text-color);
     padding: 1.5px 3px;
-    margin-right: 1rem;
+    margin: 0 1rem;
     transition: .2s;
 }
 
@@ -140,8 +146,8 @@ header {
 }
 
 .cart-product-title {
-font-size: 1rem;
-text-transform: uppercase;
+    font-size: 1rem;
+    text-transform: uppercase;
 }
 
 .cart-price {
@@ -222,7 +228,7 @@ text-transform: uppercase;
 }
 
 .shop {
-    margin-top: 2rem;
+    margin-top: 4.4rem;
 }
 
 .shop-content {
@@ -280,4 +286,13 @@ text-transform: uppercase;
 .add-cart:hover {
     background: var(--text-logo);
     color: var(--text-color)
+}
+
+@media (min-width: 550px) {
+    .nav {
+        justify-content: space-between;
+    }
+    .shop {
+        margin-top: 2.2rem;
+    }
 }

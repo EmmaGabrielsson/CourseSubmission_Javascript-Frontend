@@ -22,7 +22,12 @@
     <nav class="nav container">
       <a href="#top" class="logo"><img title="Emmas Webbshop" src="img/e.png" alt="logga format som ett E">mmas Webbshop
         <i class="bi bi-arrow-up"></i></a>
-      <i class="bi bi-cart" id="cart-icon" title="Open Cart"></i>
+        <div>
+          <button id="show-all" type="button" class="btn">
+          Show All Products
+          </button>
+          <i class="bi bi-cart" id="cart-icon" title="Open Cart"></i>
+        </div>
       <div class="cart">
         <h2 class="cart-title">Your Cart</h2>
         <div class="cart-content">
@@ -30,8 +35,8 @@
           </div>
         </div>
         <div class="total">
-          <div class="total-title">Total</div>
-          <div class="total-price">0 kr</div>
+          <div class="total-title">Total </div>
+          <div id="total-price">0 kr</div>
         </div>
         <button type="button" class="btn-buy">Buy Now</button>
         <i class="bi bi-x" id="close-cart" title="Close Cart"></i>
@@ -39,7 +44,8 @@
     </nav>
   </header>
   <section class="shop container">
-    <h2 class="section-title">Shop Products</h2>
+    <h2 class="section-title">Shop Products
+    </h2>
     <div class="shop-content">
 
       <div class="product-box">
