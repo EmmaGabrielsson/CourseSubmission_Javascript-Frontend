@@ -22,12 +22,19 @@
     <nav class="nav container">
       <a href="#top" class="logo"><img title="Emmas Webbshop" src="img/e.png" alt="logga format som ett E">mmas Webbshop
         <i class="bi bi-arrow-up"></i></a>
-        <div>
-          <button id="show-all" type="button" class="btn">
-          Show All Products
-          </button>
-          <i class="bi bi-cart" id="cart-icon" title="Open Cart"></i>
-        </div>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Categories
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Women's Clothing</a></li>
+          <li><a class="dropdown-item" href="#">Men's Clothing</a></li>
+          <li><a class="dropdown-item" href="#">Jewelery</a></li>
+          <li><a class="dropdown-item" href="#">Electronics</a></li>
+        </ul>
+        <i class="bi bi-cart" id="cart-icon" title="Open Cart"></i>
+      </div>
       <div class="cart">
         <h2 class="cart-title">Your Cart</h2>
         <div class="cart-content">
@@ -57,7 +64,10 @@
 
     </div>
   </section>
-
+  <div class="view-large-img">
+    <i class="bi bi-x close-large-view" title="Close"></i>
+    <img src="#" alt="img-product">
+  </div>
   <script defer type="module" src="script/main.js"></script>
 </body>
 

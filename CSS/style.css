@@ -80,10 +80,12 @@ header {
     display: inline;
 }
 
-#show-all {
+.dropdown button {
     font-size: 15px;
-    padding: 0;
-    margin: 10px 0;
+    padding: 2px 7px;
+    margin-bottom: 15px;
+    margin: 0 8px 8px 8px;
+    background-color: var(--bg-color);
 }
 
 #cart-icon {
@@ -92,7 +94,6 @@ header {
     text-decoration: none;
     color: var(--text-color);
     padding: 1.5px 3px;
-    margin: 0 1rem;
     transition: .2s;
 }
 
@@ -240,8 +241,12 @@ header {
 .product-box {
     position: relative;
     margin: .5rem auto;
-    border: 2px solid var(--text-color);
+    box-shadow: 0px 0px 10px var(--text-logo);
     padding: 10px;
+}
+
+.product-category {
+    text-transform: capitalize;
 }
 
 .product-img {
@@ -249,12 +254,19 @@ header {
     height: 250px;
     object-fit: contain;
     margin-bottom: 0.7rem;
+    transition: .2s ease-in-out;
+    cursor: pointer;
+}
+
+.product-img:hover {
+    padding: 1rem;
 }
 
 .product-title {
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
+    text-align: center;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--text-color);
 }
@@ -263,6 +275,7 @@ header {
     height: 200px;
     height: 100px;
     font-size: .9rem;
+    text-align: center;
     overflow-y: scroll;
 }
 
@@ -288,11 +301,56 @@ header {
     color: var(--text-color)
 }
 
+.view-large-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.905);
+    height: 100%;
+    width: 100%;
+    z-index: 200;
+    display: none;
+}
+
+.close-large-view {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    font-size: 50px;
+    font-weight: bold;
+    color: var(--bg-color);
+    cursor: pointer;
+}
+
+.view-large-img img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid var(--text-logo);
+    border-radius: 4px;
+    width: 90%;
+    object-fit: cover;
+
+}
+
 @media (min-width: 550px) {
     .nav {
         justify-content: space-between;
     }
+
     .shop {
         margin-top: 2.2rem;
+    }
+
+    #cart-icon {
+        margin-right: 1rem;
+    }
+
+}
+
+@media (min-width: 800px) {
+    .view-large-img img {
+        max-width: 700px;
     }
 }
