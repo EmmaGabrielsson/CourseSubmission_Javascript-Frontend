@@ -1,7 +1,7 @@
 "use strict";
 
 //Kod för att hämta produktdata från ett api
-export let productData = fetch('https://fakestoreapi.com/products')
+let productData = fetch('https://fakestoreapi.com/products')
     .then((response) => {
         return response.json();
     })
@@ -15,29 +15,37 @@ export let productData = fetch('https://fakestoreapi.com/products')
 const productCards = document.querySelector('.shop-content');
 function showProductCards(productData) {
     let outputBox = "";
-    productData.map((data) => {
-        let dataInfo = data.image + data.title + data.price;
+    let id = 1;
+    productData.map(data => {
+        id++;
         outputBox += `   
-        <div class="product-box">
+        <div data-id="${id}" class="product-box">
         <p class="product-category">${data.category}</P>
         <img src="${data.image}" id="${data.image}" alt="product-img" title="click to view large image" class="product-img">
         <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
         <p class="card-text">${data.description}</p>
         <span data-id="${data.price}" class="price">${data.price} kr</span>
-        <i id="${dataInfo}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        <i class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
         </div>`;
     });
     productCards.innerHTML = outputBox;
 };
 
 
-let addBtn = document.getElementsByClassName("add-cart");
+/*
+document.querySelectorAll(".add-cart");
+addBtn.forEach.onclick = () => {
+    addBtn
+    console.log();
+
+}
+/*
 for (let i = 0; i < addBtn.length; i++) {
     let cartBtn = addBtn[i];
-    console.log(cartBtn);
     cartBtn = addEventListener("click", () => {
     });
 }
+/*
 
 /*
 function addBtnProductInfo(productData) {
@@ -50,40 +58,50 @@ function addBtnProductInfo(productData) {
     };
 }
 
+//spara produkter i localStorage
 for (let i = 0; i < addBtn.length; i++) {
     let cartBtn = addBtn[i];
     cartBtn = addEventListener("click", () => {
         console.log(cartBtn);
     });
 }
-//spara produkter i localStorage
+
+*/
 
 /*
+let productImage = document.querySelectorAll(".product-img");
+
+document.querySelectorAll(".product-img").forEach(img => {
+    img.onclick = () => {
+        document.querySelector(".view-large-img").style.display = "block";
+        document.querySelector(".view-large-img img").src = img.getAttribute("src");
+    }
+});*/
+
 //Funktion för att visa produktbilder i stor vy på webbsidan, efter klick av vald produktbild
 let view = document.querySelector(".view-large-img");
-function viewLargeImg(productData) {
-    let viewImage = document.querySelector(".view-large-img img");
-    let outputBox = "";
+let productImage = document.getElementsByClassName(".product-img");
+let viewImage = document.querySelectorAll(".view-img");
 
-    productData = (data) => {
-        for (let i = 0; i < data.length; i++) {
-            let image = data[i].image;
-            console.log(image);
+
+function viewLargeImg(productData) {
+    let outputBox = "";
+    productData.map(data => {
             outputBox += `   
             <i class="bi bi-x close-large-view" title="Close"></i>
-            <img src="${data[i].image}" alt="img-product">
+            <img src="${data.image}" alt="img-product">
             `;
-            viewImage.forEach(image => {
-                image.addEventListener("click", () => {
-                    view.style.display = "block";
-                    viewImage.src = image.getAttribute("src");
-                    view.innerHTML = outputBox;
-                });
+        });
+        viewImage.forEach(image => {
+            image.addEventListener("click", () => {
+                view.style.display = "block";
+                viewImage.src = image.getAttribute("src");
+                view.innerHTML = outputBox;
             });
-        }
-    }
+        
+        });
 }
-*/
+
 
 //Funktion för att stänga stor vy av produktbild
 const closeView = document.querySelector(".close-large-view");
@@ -149,7 +167,33 @@ window.addEventListener("scroll", () => {
 
 
 //Knapp för att visa alla produkter, eller olika produktkategorier 
-const categoryBtn = document.querySelector(".dropdown button");
+const categoryBtn = document.getElementById("dropdownMenuButton1");
+const categoryMenu = document.querySelector(".dropdown-menu-container");
+const mensClothingCategory = document.getElementById("m-clothing");
+const womansClothingCategory = document.getElementById("m-clothing");
+const jeweleryCategory = document.getElementById("jewelery");
+const electronicsCategory = document.getElementById("electronics");
+const showAllCategory = document.getElementById("show-all");
+
+let toggleclick = 1;
+categoryBtn.style.border = "none";
+
+function toggleCategoryMenu () {
+    if(toggleclick == 1){
+        categoryMenu.style.display = "block";
+        categoryBtn.style.border = "2px solid var(--text-logo)";
+
+        toggleclick = 0;
+    } 
+    else {
+        categoryMenu.style.display = "none";
+        categoryBtn.style.border = "none";
+        toggleclick = 1;
+    }
+}
+
+categoryBtn.addEventListener("click", toggleCategoryMenu);
+
 
 categoryBtn.addEventListener("mouseover", function () {
     categoryBtn.style.boxShadow = "0px 0px 5px rgb(0, 202, 209)";

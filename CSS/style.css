@@ -4,7 +4,7 @@
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    scroll-padding-top: 2rem;
+    scroll-padding-top: 4rem;
     box-sizing: border-box;
     list-style: none;
 }
@@ -44,6 +44,7 @@ header {
     background: var(--bg-color);
     box-shadow: 0 1px 4px var(--text-logo);
     z-index: 100;
+    height: 7rem;
 }
 
 .nav {
@@ -54,6 +55,9 @@ header {
 }
 
 .logo {
+    position: absolute;
+    top: 2rem;
+    left: 80px;
     font-size: 1.1rem;
     color: var(--text-color);
     font-weight: 400;
@@ -80,15 +84,44 @@ header {
     display: inline;
 }
 
-.dropdown button {
+.dropdown {
+    position: absolute;
+    top: 4rem;
+    transform: translate(-50% -50%);
+}
+
+.dropdown>button {
     font-size: 15px;
-    padding: 2px 7px;
-    margin-bottom: 15px;
-    margin: 0 8px 8px 8px;
+    padding: 2px;
+    width: 175px;
+    margin: 0 8px 0px 8px;
+    border: 2px solid var(--text-logo);
     background-color: var(--bg-color);
 }
 
+.dropdown-menu-container {
+    display: none;
+    border: 2px solid var(--text-logo);
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+    padding: 10px;
+    background-color: white;
+}
+
+.dropdown-menu-container li {
+    margin: 0;
+    padding: 2px;
+    width: 130px;
+}
+
+.dropdown-menu-container li a:hover {
+    color: var(--text-logo);
+}
+
 #cart-icon {
+    position: absolute;
+    top: -40px;
+    right: -100px;
     font-size: 1.8rem;
     cursor: pointer;
     text-decoration: none;
@@ -335,16 +368,26 @@ header {
 }
 
 @media (min-width: 550px) {
+    header {
+        height: 5.5rem;
+    }
     .nav {
         justify-content: space-between;
     }
-
+    .logo {
+        top: 2rem;
+        left: 1rem;
+    }
+    .dropdown {
+        top: 2rem;
+        right: 5rem;
+    }
+    #cart-icon {
+        top: -10px;
+        right: -45px;    
+    }
     .shop {
         margin-top: 2.2rem;
-    }
-
-    #cart-icon {
-        margin-right: 1rem;
     }
 
 }

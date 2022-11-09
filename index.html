@@ -23,15 +23,15 @@
       <a href="#top" class="logo"><img title="Emmas Webbshop" src="img/e.png" alt="logga format som ett E">mmas Webbshop
         <i class="bi bi-arrow-up"></i></a>
       <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-          aria-expanded="false">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" aria-expanded="false">
           Categories
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Women's Clothing</a></li>
-          <li><a class="dropdown-item" href="#">Men's Clothing</a></li>
-          <li><a class="dropdown-item" href="#">Jewelery</a></li>
-          <li><a class="dropdown-item" href="#">Electronics</a></li>
+        <ul class="dropdown-menu-container" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" id="show-all" href="#">Show all products</a></li>
+          <li><a class="dropdown-item" id="w-clothing" href="#">Women's Clothing</a></li>
+          <li><a class="dropdown-item" id="m-clothing" href="#">Men's Clothing</a></li>
+          <li><a class="dropdown-item" id="jewelery" href="#">Jewelery</a></li>
+          <li><a class="dropdown-item" id="electronics" href="#">Electronics</a></li>
         </ul>
         <i class="bi bi-cart" id="cart-icon" title="Open Cart"></i>
       </div>
@@ -54,19 +54,11 @@
     <h2 class="section-title">Shop Products
     </h2>
     <div class="shop-content">
-
-      <div class="product-box">
-        <img src="" alt="" class="product-img">
-        <h2 class="product-title">product</h2>
-        <span class="price">150 kr</span>
-        <i class="bi bi-cart-plus add-cart"> add</i>
-      </div>
-
     </div>
   </section>
   <div class="view-large-img">
     <i class="bi bi-x close-large-view" title="Close"></i>
-    <img src="#" alt="img-product">
+    <img class="view-img" src="" alt="img-product">
   </div>
   <script defer type="module" src="script/main.js"></script>
 </body>
