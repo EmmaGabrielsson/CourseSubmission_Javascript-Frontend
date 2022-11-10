@@ -1,36 +1,173 @@
 "use strict";
 
-//Kod för att hämta produktdata från ett api
+//Kod för att hämta all produktdata från api
 let productData = fetch('https://fakestoreapi.com/products')
     .then((response) => {
         return response.json();
     })
     .then((productData) => {
-        showProductCards(productData);
+        productData;
+        showAllProductCards(productData);
+        //handleCategories();
     })
     .catch((error) => console.error(error));
 
+//Kod för att hämta category jewelery från api
+let jCategoryData = fetch('https://fakestoreapi.com/products/category/jewelery')
+    .then((response) => {
+        return response.json();
+    })
+    .then(jCategoryData => {
+        // showJeweleryCategory(jCategoryData);
+    })
+    .catch((error) => console.error(error));
 
-//Funktion för att visa produkterna på webbsidan
+//Kod för att hämta category electronics från api
+let elCategoryData = fetch('https://fakestoreapi.com/products/category/electronics')
+    .then((response) => {
+        return response.json();
+    })
+    .then(elCategoryData => {
+        //showElectronicsCategory(elCategoryData);
+    })
+    .catch((error) => console.error(error));
+
+//Kod för att hämta category men´s-clothing produkter från api
+let mensCategoryData = fetch(`https://fakestoreapi.com/products/category/men's clothing`)
+    .then((response) => {
+        return response.json();
+    })
+    .then(mensCategoryData => {
+        //showMensCategory(mensCategoryData);
+    })
+    .catch((error) => console.error(error));
+
+//Kod för att hämta category Women´s-clothing produkter från api
+let womensCategoryData = fetch(`https://fakestoreapi.com/products/category/women's clothing`)
+    .then((response) => {
+        return response.json();
+    })
+    .then(womensCategoryData => {
+        //showWomensCategory(womensCategoryData);
+    })
+    .catch((error) => console.error(error));
+
+//Kod för att hämta limited produktdata från api
+let limitedProductData = fetch('https://fakestoreapi.com/products?limit=5')
+    .then((response) => {
+        return response.json();
+    })
+    .then((limitedProductData) => {
+      //  limitedProductCards(limitedProductData);
+    })
+    .catch((error) => console.error(error));
+
+//Funktion för att visa alla produkterna på webbsidan
 const productCards = document.querySelector('.shop-content');
-function showProductCards(productData) {
+function showAllProductCards(productData) {
     let outputBox = "";
-    let id = 1;
-    productData.map(data => {
-        id++;
+    productData.forEach(data => {
         outputBox += `   
-        <div data-id="${id}" class="product-box">
+        <div class="product-box">
         <p class="product-category">${data.category}</P>
-        <img src="${data.image}" id="${data.image}" alt="product-img" title="click to view large image" class="product-img">
+        <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
         <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
         <p class="card-text">${data.description}</p>
         <span data-id="${data.price}" class="price">${data.price} kr</span>
-        <i class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        <i id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
         </div>`;
     });
     productCards.innerHTML = outputBox;
 };
 
+//Funktion för att visa jewelery-produkterna på webbsidan
+function showJeweleryCategory(jCategoryData) {
+    let outputBox = "";
+    jCategoryData.forEach(data => {
+        outputBox += `   
+        <div class="product-box">
+        <p class="product-category">${data.category}</P>
+        <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
+        <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
+        <p class="card-text">${data.description}</p>
+        <span data-id="${data.price}" class="price">${data.price} kr</span>
+        <i id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        </div>`;
+    });
+    productCards.innerHTML = outputBox;
+};
+
+//Funktion för att visa electronics-produkterna på webbsidan
+function showElectronicsCategory(elCategoryData) {
+    let outputBox = "";
+    elCategoryData.forEach(data => {
+        outputBox += `   
+            <div class="product-box">
+            <p class="product-category">${data.category}</P>
+            <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
+            <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
+            <p class="card-text">${data.description}</p>
+            <span data-id="${data.price}" class="price">${data.price} kr</span>
+            <i id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+            </div>`;
+    });
+    productCards.innerHTML = outputBox;
+};
+
+//Funktion för att visa Men´s Clothing-produkter på webbsidan
+function showMensCategory(mensCategoryData) {
+    let outputBox = "";
+    mensCategoryData.forEach(data => {
+        outputBox += `   
+        <div class="product-box">
+        <p class="product-category">${data.category}</P>
+        <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
+        <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
+        <p class="card-text">${data.description}</p>
+        <span data-id="${data.price}" class="price">${data.price} kr</span>
+        <i id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        </div>`;
+    });
+    productCards.innerHTML = outputBox;
+};
+
+//Funktion för att visa Women´s Clothing-produkter på webbsidan
+function showWomensCategory(womensCategoryData) {
+    let outputBox = "";
+    womensCategoryData.forEach(data => {
+        outputBox += `   
+        <div class="product-box">
+        <p class="product-category">${data.category}</P>
+        <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
+        <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
+        <p class="card-text">${data.description}</p>
+        <span data-id="${data.price}" class="price">${data.price} kr</span>
+        <i id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        </div>`;
+    });
+    productCards.innerHTML = outputBox;
+};
+
+//Funktion för att visa endast 5-produkter på webbsidan
+function limitedProductCards(limitedProductData) {
+    let outputBox = "";
+    limitedProductData.forEach(data => {
+        outputBox += `   
+        <div class="product-box">
+        <p class="product-category">${data.category}</P>
+        <img src="${data.image}" id="${data.image}" alt="${data.title}" title="click to view large image" class="product-img">
+        <h2 data-id="${data.title}" class="product-title">${data.title}</h2>
+        <p class="card-text">${data.description}</p>
+        <span data-id="${data.price}" class="price">${data.price} kr</span>
+        <i data-id="${data.id}" class="bi bi-cart-plus add-cart" title="add to cart"> add</i>
+        </div>`;
+    });
+    productCards.innerHTML = outputBox;
+};
+
+let addBtn = [];
+addBtn = document.querySelector(".add-cart");
+console.log(addBtn);
 
 /*
 document.querySelectorAll(".add-cart");
@@ -77,7 +214,7 @@ document.querySelectorAll(".product-img").forEach(img => {
         document.querySelector(".view-large-img img").src = img.getAttribute("src");
     }
 });*/
-
+/*
 //Funktion för att visa produktbilder i stor vy på webbsidan, efter klick av vald produktbild
 let view = document.querySelector(".view-large-img");
 let productImage = document.getElementsByClassName(".product-img");
@@ -101,7 +238,7 @@ function viewLargeImg(productData) {
         
         });
 }
-
+*/
 
 //Funktion för att stänga stor vy av produktbild
 const closeView = document.querySelector(".close-large-view");
@@ -166,7 +303,7 @@ window.addEventListener("scroll", () => {
 });
 
 
-//Knapp för att visa alla produkter, eller olika produktkategorier 
+//Knappar och funktioner för att visa alla produkter, eller olika produktkategorier 
 const categoryBtn = document.getElementById("dropdownMenuButton1");
 const categoryMenu = document.querySelector(".dropdown-menu-container");
 const mensClothingCategory = document.getElementById("m-clothing");
@@ -178,13 +315,12 @@ const showAllCategory = document.getElementById("show-all");
 let toggleclick = 1;
 categoryBtn.style.border = "none";
 
-function toggleCategoryMenu () {
-    if(toggleclick == 1){
+function toggleCategoryMenu() {
+    if (toggleclick == 1) {
         categoryMenu.style.display = "block";
         categoryBtn.style.border = "2px solid var(--text-logo)";
-
         toggleclick = 0;
-    } 
+    }
     else {
         categoryMenu.style.display = "none";
         categoryBtn.style.border = "none";
@@ -194,7 +330,6 @@ function toggleCategoryMenu () {
 
 categoryBtn.addEventListener("click", toggleCategoryMenu);
 
-
 categoryBtn.addEventListener("mouseover", function () {
     categoryBtn.style.boxShadow = "0px 0px 5px rgb(0, 202, 209)";
 });
@@ -202,5 +337,12 @@ categoryBtn.addEventListener("mouseout", function () {
     categoryBtn.style.boxShadow = "none";
 });
 
-
-
+/*
+showAllCategory.addEventListener("click", handleCategories);
+function handleCategories() {
+    if (showAllCategory == 1 ) {
+        showAllProductCards(productData);
+        toggleCategoryMenu();
+    }
+}
+*/

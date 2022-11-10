@@ -364,7 +364,15 @@ header {
     border-radius: 4px;
     width: 90%;
     object-fit: cover;
+}
 
+footer {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0px 0px 4px var(--text-logo);
+    font-style: italic;
+    text-shadow: 0px 0 2px var(--text-logo);
 }
 
 @media (min-width: 550px) {
