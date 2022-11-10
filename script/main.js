@@ -1,7 +1,7 @@
 "use strict";
 
 //Kod för att hämta limited produktdata från api till startsidan
-fetch('https://fakestoreapi.com/products?limit=5')
+fetch('https://fakestoreapi.com/products?limit=6')
     .then((response) => {
         return response.json();
     })
@@ -13,7 +13,6 @@ fetch('https://fakestoreapi.com/products?limit=5')
 //Knappar och funktioner för att visa alla produkter, eller olika produktkategorier 
 const categoryBtn = document.getElementById("dropdownMenuButton1");
 const categoryMenu = document.querySelector(".dropdown-menu-container");
-
 
 let toggleclick = 1;
 function toggleCategoryMenu() {
@@ -121,7 +120,7 @@ function showAllProductCards(products) {
         </div>`;
     });
     productCards.innerHTML = outputBox;
-};
+}
 
 //Funktion för att visa jewelery-produkterna på webbsidan
 function showJeweleryCategory(products) {
@@ -138,7 +137,7 @@ function showJeweleryCategory(products) {
         </div>`;
     });
     productCards.innerHTML = outputBox;
-};
+}
 
 //Funktion för att visa electronics-produkterna på webbsidan
 function showElectronicsCategory(products) {
@@ -155,7 +154,7 @@ function showElectronicsCategory(products) {
             </div>`;
     });
     productCards.innerHTML = outputBox;
-};
+}
 
 //Funktion för att visa Men´s Clothing-produkter på webbsidan
 function showMensCategory(products) {
@@ -172,7 +171,7 @@ function showMensCategory(products) {
         </div>`;
     });
     productCards.innerHTML = outputBox;
-};
+}
 
 //Funktion för att visa Women´s Clothing-produkter på webbsidan
 function showWomensCategory(products) {
@@ -189,7 +188,7 @@ function showWomensCategory(products) {
         </div>`;
     });
     productCards.innerHTML = outputBox;
-};
+}
 
 //Funktion för att visa endast 5-produkter på webbsidan
 function limitedProductCards(products) {
@@ -204,46 +203,43 @@ function limitedProductCards(products) {
         <span class="price">${product.price} sek</span>
         <button type="button" id="${product.id}" title="add to cart" class="bi bi-cart-plus add-cart"> add</button>
         </div>`;
+        viewImage.src = product.image;
+        console.log(product.image)
+        product.image.forEach(img => {
+            img.addEventListener("click", (event) => {
+            if(event == viewImage){
+                view.style.display = "block";
+            }
+        })
+    })
     });
-    productCards.innerHTML = outputBox;
-};
-
-
-/*
-
-//spara produkter i localStorage
-function store() {
-    let img, title, price, id;
-
-    const product = {
-        img: img,
-        title: title,
-        price: price,
-        id: id,
-    }
-    localStorage.setItem(product, JSON.stringify(product));
+    productCards.innerHTML = outputBox;    
 }
 
-*/
-
 /*
-let productImages = document.querySelectorAll(".product-img");
-
 productImages.forEach(img => {
     img.onclick = () => {
         document.querySelector(".view-large-img").style.display = "block";
         document.querySelector(".view-large-img img").src = img.getAttribute("src");
     }
 });*/
-/*
+
 //Funktion för att visa produktbilder i stor vy på webbsidan, efter klick av vald produktbild
 let view = document.querySelector(".view-large-img");
+let viewImage = document.querySelector(".view-img");
 let productImage = document.getElementsByClassName(".product-img");
-let viewImage = document.querySelectorAll(".view-img");
 
-function viewLargeImg(productData) {
+function viewLargeImg (event){
+    viewImage.src = event.currentTarget.src;
+    view.style.display = "block";
+}
+
+
+
+/*
+function viewLargeImg(img) {
     let outputBox = "";
-    productData.map(data => {
+    img.map(data => {
             outputBox += `   
             <i class="bi bi-x close-large-view" title="Close"></i>
             <img src="${data.image}" alt="img-product">
@@ -251,15 +247,12 @@ function viewLargeImg(productData) {
         });
         viewImage.forEach(image => {
             image.addEventListener("click", () => {
-                view.style.display = "block";
                 viewImage.src = image.getAttribute("src");
-                view.innerHTML = outputBox;
             });
         
         });
 }
 */
-
 //Funktion för att stänga stor vy av produktbild
 const closeView = document.querySelector(".close-large-view");
 closeView.onclick = () => {
@@ -330,7 +323,7 @@ buttonList.addEventListener("click", (e) => {
 });
 
 //skapa update()- totalpris i cart funktion
-
+function updateTotalPrice()
 
 //rensa all sparad data i localStorage
 const clearBtn = document.getElementById("btn-clear");
@@ -341,8 +334,8 @@ function clearLocalStorageAndCart() {
         localStorage.clear();
     }
 }
-
 /*
+
 //skicka cart-content för köpet genom post-function
 const buyBtn = document.getElementById("btn-buy");
 buyBtn.addEventListener("click", placeOrder);
@@ -350,6 +343,7 @@ buyBtn.addEventListener("click", placeOrder);
 function placeOrder() {
   alert("Your order has been placed.");
 }*/
+
 
 //Funktion för att visa arrow-up vid företagsnamn när man scrollar ner på webbsidan.
 window.addEventListener("scroll", () => {
@@ -362,5 +356,3 @@ window.addEventListener("scroll", () => {
         arrow.classList.remove("active");
     }
 });
-
-
