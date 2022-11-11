@@ -212,11 +212,11 @@ let view = document.querySelector(".view-large-img");
 let viewImage = document.querySelector(".view-img");
 
 productCards.addEventListener("click", (event) => {
-    let target = event.target.closest(".product-img");
-    if (!target || !productCards.contains(target)) {
+    let img = event.target.closest(".product-img");
+    if (!img || !productCards.contains(img)) {
         return;
     }
-    viewImage.src = target.src;
+    viewImage.src = img.src;
     view.style.display = "block";
 });
 
@@ -233,6 +233,7 @@ const closeCartBtn = document.querySelector("#close-cart");
 
 function openCart() {
     cart.classList.add("active");
+    showStoredProductsInCart();
 }
 showCart.addEventListener("click", openCart);
 
@@ -246,17 +247,14 @@ closeCartBtn.addEventListener("click", closeCart);
 const showAddedProducts = document.querySelector(".cart-content");
 
 productCards.addEventListener("click", (event) => {
-    let target = event.target.closest(".add-cart");
-    let product = target.parentElement.innerHTML;
-    if (!target || !productCards.contains(target)) {
+    let addBtn = event.target.closest(".add-cart");
+    let product = addBtn.parentElement.innerHTML;
+    if (!addBtn || !productCards.contains(addBtn)) {
         return;
     }
     localStorage.setItem(product, JSON.stringify(product));
     showStoredProductsInCart();
-    
-    
     //updateTotalPrice();
-    console.log("jaaa")
 });
 
 //visa sparade produkter från localstorage i kassan
@@ -266,23 +264,36 @@ function showStoredProductsInCart() {
     let productId;
     if (localStorage.length !== 0)    {
         Object.keys(localStorage).forEach(function (key) {
-            productId = localStorage.getItem(key);
-            productId = JSON.parse(productId);
+            console.log(key)
+            productId = JSON.parse(localStorage.getItem(key));
 
             console.log(productId);
+            let image = document.querySelector(".product-img").src;
+            let title = document.querySelector(".product-title").innerText;
+            let price = document.querySelector(".price").innerText;
             let content = `
-            
-            `;
+                <div class="cart-box">
+                <img src="${image}" alt="${title}" class="cart-img">
+                <div class="detail-box">
+                <div class="cart-title-product">${title}</div>
+                <div class="cart-price">${price}</div>
+                <label class="label-quantity" for="quantity">Quantity</label>
+                <input name="quantity" title="select quantity" type="number" value="1" class="cart-quantity">
+                </div>
+                <button type="button" class="bi bi-trash cart-remove" title="delete from cart"></button>
+                </div>
+                `;
+
             showAddedProducts.innerHTML= content;
         });
     }
     else {
         showAddedProducts.innerText = "No products added to your cart yet.";
+        showAddedProducts.style.textAlign = "center";
     }
 }
 
 
-OBS lägg till event delegation i inlämningsfråga.
 /*
 function showStoredProductsInCart(product) {
     //Object.keys(localStorage).forEach(function (key) {
@@ -333,7 +344,7 @@ clearBtn.addEventListener("click", clearLocalStorageAndCart);
 function clearLocalStorageAndCart() {
     if (confirm("All products in your cart will be removed, are you sure?")) {
         localStorage.clear();
-        //showStoredProductsInCart();
+        showStoredProductsInCart();
     }
 }
 
