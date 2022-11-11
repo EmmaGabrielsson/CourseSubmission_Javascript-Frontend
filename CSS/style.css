@@ -142,7 +142,7 @@ header {
     top: 0;
     right: -100%;
     width: 360px;
-    min-height: 100vh;
+    height: 100%;
     padding: 20px;
     background: var(--bg-color);
     box-shadow: -2px 0 4px var(--text-logo);
@@ -288,6 +288,10 @@ header {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, auto));
     gap: 2.5rem;
+}
+
+#no-product-cart {
+    text-align: center;
 }
 
 .product-box {

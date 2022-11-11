@@ -213,7 +213,6 @@ let viewImage = document.querySelector(".view-img");
 
 productCards.addEventListener("click", (event) => {
     let target = event.target.closest(".product-img");
-
     if (!target || !productCards.contains(target)) {
         return;
     }
@@ -243,65 +242,104 @@ function closeCart() {
 closeCartBtn.addEventListener("click", closeCart);
 
 
-//visa sparade produkter från localstorage i kassan
+//spara produkter i localstorage vid klick add-to-cart
 const showAddedProducts = document.querySelector(".cart-content");
-export function showStoredProductsInCart() {
-    let id;
-    if (localStorage.length == 0) {
-        showAddedProducts.innerText = "No products added to cart yet!";
-        showAddedProducts.style.textAlign = "center";
+
+productCards.addEventListener("click", (event) => {
+    let target = event.target.closest(".add-cart");
+    let product = target.parentElement.innerHTML;
+    if (!target || !productCards.contains(target)) {
+        return;
+    }
+    localStorage.setItem(product, JSON.stringify(product));
+    showStoredProductsInCart();
+    
+    
+    //updateTotalPrice();
+    console.log("jaaa")
+});
+
+//visa sparade produkter från localstorage i kassan
+let productBox = document.querySelector(".cart-box");
+
+function showStoredProductsInCart() {
+    let productId;
+    if (localStorage.length !== 0)    {
+        Object.keys(localStorage).forEach(function (key) {
+            productId = localStorage.getItem(key);
+            productId = JSON.parse(productId);
+
+            console.log(productId);
+            let content = `
+            
+            `;
+            showAddedProducts.innerHTML= content;
+        });
     }
     else {
-        Object.keys(localStorage).forEach(function (key) {
-            id = localStorage.getItem(key);
-            let productContent = `
+        showAddedProducts.innerText = "No products added to your cart yet.";
+    }
+}
+
+
+OBS lägg till event delegation i inlämningsfråga.
+/*
+function showStoredProductsInCart(product) {
+    //Object.keys(localStorage).forEach(function (key) {
+        for (let i = 0; i < localStorage.length; i++) {
+            product = localStorage.key([i]);
+            console.log(product)
+            let productContent = localStorage.getItem(product);
+            console.log(productContent);
+
+            productContent = JSON.parse(productContent);
+            showAddedProducts.innerHTML = productContent;
+            
+            console.log(productContent);
+        }
+    
+        let productId = localStorage.getItem(key);
+        console.log(productContent);
+        if (localStorage == productId) {
+            alert("This product is already added to your cart.")
+        }
+        else if (localStorage.length !== 0) {
+            productContent+=
+            
+            /*`
                 <div class="cart-box">
-                <img src="${id.image}" alt="${id.title}" class="cart-img">
+                <img src="${productId.image}" alt="${productId.title}" class="cart-img">
                 <div class="detail-box">
-                <div class="cart-title-product">${id.title}</div>
-                <div class="cart-price">${id.price}</div>
+                <div class="cart-title-product">${productId.title}</div>
+                <div class="cart-price">${productId.price}</div>
                 <label for="quantity">Antal</label>
                 <input name="quantity" title="quantity" type="number" value="1" class="cart-quantity">
                 </div>
-                <button type="button"><i data-id="${id.id}" class="bi bi-trash cart-remove" title="delete from cart"></i></button>
+                <button type="button"><i id="${productId.id}" class="bi bi-trash cart-remove" title="delete from cart"></i></button>
                 </div>
                 `;
-            showAddedProducts.innerHTML = productContent;
-        });
-    }
+                showAddedProducts.innerHTML = productContent;
+            }
+            else {
+                showAddedProducts.innerText = "No products added to your cart yet.";
+            }
+   // });
 }
-
-/*
-//showStoredProductsInCart();
-
-//spara produkter i localStorage
-function storeProductOnAddClicked(e) {
-    let button = e.target;
-    let product = button.parentElement.innerText;
-    localStorage.setItem(product, JSON.stringify(product));
-}
-
-console.log(localStorage);
-
-let buttonList = document.getElementsByClassName('add-cart');
-buttonList.addEventListener("click", (e) => {
-    for (let i = 0; i < buttonList.length; i++) {
-        console.log(e[i].target.id);
-    }
-});
-
-//skapa update()- totalpris i cart funktion
-function updateTotalPrice()
-
+*/
 //rensa all sparad data i localStorage
 const clearBtn = document.getElementById("btn-clear");
 clearBtn.addEventListener("click", clearLocalStorageAndCart);
 
 function clearLocalStorageAndCart() {
-    if (confirm("All products in your cart will be deleted, are you sure?")) {
+    if (confirm("All products in your cart will be removed, are you sure?")) {
         localStorage.clear();
+        //showStoredProductsInCart();
     }
 }
+
+/*
+//skapa update()- totalpris i cart funktion
+function updateTotalPrice()
 /*
 
 //skicka cart-content för köpet genom post-function
