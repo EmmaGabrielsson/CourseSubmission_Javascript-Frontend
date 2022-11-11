@@ -203,56 +203,24 @@ function limitedProductCards(products) {
         <span class="price">${product.price} sek</span>
         <button type="button" id="${product.id}" title="add to cart" class="bi bi-cart-plus add-cart"> add</button>
         </div>`;
-        viewImage.src = product.image;
-        console.log(product.image)
-        product.image.forEach(img => {
-            img.addEventListener("click", (event) => {
-            if(event == viewImage){
-                view.style.display = "block";
-            }
-        })
-    })
     });
-    productCards.innerHTML = outputBox;    
+    productCards.innerHTML = outputBox;
 }
-
-/*
-productImages.forEach(img => {
-    img.onclick = () => {
-        document.querySelector(".view-large-img").style.display = "block";
-        document.querySelector(".view-large-img img").src = img.getAttribute("src");
-    }
-});*/
 
 //Funktion för att visa produktbilder i stor vy på webbsidan, efter klick av vald produktbild
 let view = document.querySelector(".view-large-img");
 let viewImage = document.querySelector(".view-img");
-let productImage = document.getElementsByClassName(".product-img");
 
-function viewLargeImg (event){
-    viewImage.src = event.currentTarget.src;
+productCards.addEventListener("click", (event) => {
+    let target = event.target.closest(".product-img");
+
+    if (!target || !productCards.contains(target)) {
+        return;
+    }
+    viewImage.src = target.src;
     view.style.display = "block";
-}
+});
 
-
-
-/*
-function viewLargeImg(img) {
-    let outputBox = "";
-    img.map(data => {
-            outputBox += `   
-            <i class="bi bi-x close-large-view" title="Close"></i>
-            <img src="${data.image}" alt="img-product">
-            `;
-        });
-        viewImage.forEach(image => {
-            image.addEventListener("click", () => {
-                viewImage.src = image.getAttribute("src");
-            });
-        
-        });
-}
-*/
 //Funktion för att stänga stor vy av produktbild
 const closeView = document.querySelector(".close-large-view");
 closeView.onclick = () => {
