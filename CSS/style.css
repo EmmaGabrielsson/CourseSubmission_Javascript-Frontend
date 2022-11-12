@@ -132,9 +132,21 @@ header {
     transition: .2s;
 }
 
+#cart-icon span {
+    font-size: 14px;
+    padding: 0 3px;
+    background-color: var(--text-logo);
+    border-radius: 10px;
+    transition: .2s;
+}
+
 #cart-icon:hover {
     font-size: 2rem;
-    color: var(--text-logo)
+    color: var(--text-logo);
+}
+
+#cart-icon:hover span {
+    color: var(--text-color);
 }
 
 .cart {
@@ -183,7 +195,7 @@ header {
 }
 
 .cart-title-product {
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
 }
 
@@ -197,10 +209,8 @@ header {
 
 .cart-quantity {
     border: 1px solid var(--text-color);
-    outline-color: var(--main-color);
     width: 2.4rem;
     text-align: center;
-    font-size: 1rem;
 }
 
 .cart-remove {

@@ -245,47 +245,117 @@ closeCartBtn.addEventListener("click", closeCart);
 
 //spara produkter i localstorage vid klick add-to-cart
 const showAddedProducts = document.querySelector(".cart-content");
+//let quantity = document.querySelectorAll(".cart-quantity").values;
+let shoppingList = [];
 
 productCards.addEventListener("click", (event) => {
     let addBtn = event.target.closest(".add-cart");
-    let product = addBtn.parentElement.innerHTML;
+    let product = {
+        id: addBtn.id,
+        image: addBtn.parentElement.children[1].src,
+        title: addBtn.parentElement.children[2].innerText,
+        price: addBtn.previousElementSibling.innerText,
+        quantity: 1,
+    }
     if (!addBtn || !productCards.contains(addBtn)) {
         return;
     }
-    localStorage.setItem(product, JSON.stringify(product));
-    showStoredProductsInCart();
-    //updateTotalPrice();
+    if (JSON.parse(localStorage.getItem("shoppingList")) === null) {
+        shoppingList.push(product);
+        localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+        window.location.reload();
+    }
+    else {
+        const localList = JSON.parse(localStorage.getItem("shoppingList"))
+        localList.map(data => {
+            if (product.id == data.id) {
+                shoppingList.quantity = data.quantity + 1;
+            }
+            else {
+                shoppingList.push(data);
+            }
+        });
+        shoppingList.push(product);
+        localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+        window.location.reload();
+    }
 });
+
+//visa antal tillagda produkter i cart icon
+const cartCount = showCart.querySelector("span");
+let count = 0;
+function showCartCount() {
+    if (JSON.parse(localStorage.getItem("shoppingList")) == null) {
+        return;
+    }
+    JSON.parse(localStorage.getItem("shoppingList")).map(data => {
+        count = count + data.quantity;
+    });
+    cartCount.innerText = count;
+}
+showCartCount();
+
+//funktion för att uppdatera totalpriset i kassan
+const totalPrice = document.querySelector("#total-price span");
+function updateTotalPrice() {
+    let total = 0;
+    let product;
+    Object.keys(localStorage).forEach(function (key) {
+        product = JSON.parse(localStorage.getItem(key));
+        for (let i = 0; i < product.length; i++) {
+            total += parseFloat(product[i].price) * product[i].quantity;
+        }
+        totalPrice.innerHTML = total;
+    });
+};
+updateTotalPrice();
+/*
+function quantityCount() {
+    showAddedProducts.addEventListener("click", (event) => {
+        let qty = event.target.closest(".cart-quantity").value;
+        let totalQty, product;
+        console.log(qty);
+        if (qty <= 0) {
+            //alert("invalid choice");
+            qty = 1;
+            showStoredProductsInCart();
+        }
+        qty = totalQty;
+        JSON.stringify(qty);
+        shoppingList.push(product.quantity = qty);
+
+        totalQty += product[i].quantity;
+    });
+}
+quantityCount();*/
 
 //visa sparade produkter från localstorage i kassan
 let productBox = document.querySelector(".cart-box");
 
 function showStoredProductsInCart() {
-    let productId;
-    if (localStorage.length !== 0)    {
+    let product;
+    let content = "";
+    if (localStorage.length !== 0) {
         Object.keys(localStorage).forEach(function (key) {
-            console.log(key)
-            productId = JSON.parse(localStorage.getItem(key));
+            product = JSON.parse(localStorage.getItem(key));
+            for (let i = 0; i < product.length; i++) {
+                let title = product[i].title.slice(0, 25) + "...";
+                content += `
+                    <div class="cart-box">
+                    <img src="${product[i].image}" alt="${product[i].title}" class="cart-img">
+                    <div class="detail-box">
+                    <div class="cart-title-product">${title}</div>
+                    <div class="cart-price">${product[i].price}</div>
+                    <label class="label-quantity" for="quantity">Quantity</label>
+                    <input name="quantity" title="select quantity" contenteditable="true" type="number" value="1"class="cart-quantity">
+                    </div>
+                    <button type="button" id="${product[i].id}" class="bi bi-trash cart-remove" title="delete from cart"></button>
+                    </div>
+                    `;
 
-            console.log(productId);
-            let image = document.querySelector(".product-img").src;
-            let title = document.querySelector(".product-title").innerText;
-            let price = document.querySelector(".price").innerText;
-            let content = `
-                <div class="cart-box">
-                <img src="${image}" alt="${title}" class="cart-img">
-                <div class="detail-box">
-                <div class="cart-title-product">${title}</div>
-                <div class="cart-price">${price}</div>
-                <label class="label-quantity" for="quantity">Quantity</label>
-                <input name="quantity" title="select quantity" type="number" value="1" class="cart-quantity">
-                </div>
-                <button type="button" class="bi bi-trash cart-remove" title="delete from cart"></button>
-                </div>
-                `;
-
-            showAddedProducts.innerHTML= content;
+            }
         });
+        showAddedProducts.innerHTML = content;
     }
     else {
         showAddedProducts.innerText = "No products added to your cart yet.";
@@ -293,6 +363,28 @@ function showStoredProductsInCart() {
     }
 }
 
+
+//funktion för att ta bort produkter från kassan
+//function removeProduct() {
+    showAddedProducts.addEventListener("click", (event) => {
+        
+        let removeBtn = event.target.closest(".cart-remove");
+        Object.keys(localStorage).forEach(function (key) {
+            let product;
+            product = JSON.parse(localStorage.getItem(key));
+            for(let i= 0; i< product.length; i++) {
+                console.log(product[i].id, removeBtn.id);
+                if (removeBtn.id == product[i].id)
+                
+                localStorage.removeItem(product);
+                showStoredProductsInCart();
+                updateTotalPrice();
+
+
+            }
+        });
+    });
+//}
 
 /*
 function showStoredProductsInCart(product) {
