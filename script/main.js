@@ -246,7 +246,7 @@ closeCartBtn.addEventListener("click", closeCart);
 //spara produkter i localstorage vid klick add-to-cart
 const showAddedProducts = document.querySelector(".cart-content");
 //let quantity = document.querySelectorAll(".cart-quantity").values;
-let shoppingList = [];
+let shoppingCart = [];
 
 productCards.addEventListener("click", (event) => {
     let addBtn = event.target.closest(".add-cart");
@@ -260,23 +260,24 @@ productCards.addEventListener("click", (event) => {
     if (!addBtn || !productCards.contains(addBtn)) {
         return;
     }
-    if (JSON.parse(localStorage.getItem("shoppingList")) === null) {
-        shoppingList.push(product);
-        localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+    else if (JSON.parse(localStorage.getItem("shoppingCart")) === null) {
+        shoppingCart.push(product);
+        localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
         window.location.reload();
     }
     else {
-        const localList = JSON.parse(localStorage.getItem("shoppingList"))
+        const localList = JSON.parse(localStorage.getItem("shoppingCart"))
         localList.map(data => {
             if (product.id == data.id) {
-                shoppingList.quantity = data.quantity + 1;
+                shoppingCart.quantity = data.quantity + 1;
             }
             else {
-                shoppingList.push(data);
+                shoppingCart.push(data);
+                console.log(data)
             }
         });
-        shoppingList.push(product);
-        localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+        shoppingCart.push(product);
+        localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
         window.location.reload();
     }
 });
@@ -285,10 +286,10 @@ productCards.addEventListener("click", (event) => {
 const cartCount = showCart.querySelector("span");
 let count = 0;
 function showCartCount() {
-    if (JSON.parse(localStorage.getItem("shoppingList")) == null) {
+    if (JSON.parse(localStorage.getItem("shoppingCart")) == null) {
         return;
     }
-    JSON.parse(localStorage.getItem("shoppingList")).map(data => {
+    JSON.parse(localStorage.getItem("shoppingCart")).map(data => {
         count = count + data.quantity;
     });
     cartCount.innerText = count;
@@ -309,26 +310,19 @@ function updateTotalPrice() {
     });
 };
 updateTotalPrice();
+
 /*
-function quantityCount() {
-    showAddedProducts.addEventListener("click", (event) => {
-        let qty = event.target.closest(".cart-quantity").value;
-        let totalQty, product;
-        console.log(qty);
-        if (qty <= 0) {
-            //alert("invalid choice");
-            qty = 1;
-            showStoredProductsInCart();
-        }
-        qty = totalQty;
-        JSON.stringify(qty);
-        shoppingList.push(product.quantity = qty);
-
-        totalQty += product[i].quantity;
-    });
-}
-quantityCount();*/
-
+showAddedProducts.addEventListener("click", (event) => {
+    let qty = event.target.closest(".cart-quantity").value;
+    console.log(qty);
+    if (qty <= 0) {
+        qty = 1;
+    }
+    JSON.stringify(qty);
+    shoppingList.push(qty);
+    showStoredProductsInCart();
+});
+*/
 //visa sparade produkter från localstorage i kassan
 let productBox = document.querySelector(".cart-box");
 
@@ -347,7 +341,7 @@ function showStoredProductsInCart() {
                     <div class="cart-title-product">${title}</div>
                     <div class="cart-price">${product[i].price}</div>
                     <label class="label-quantity" for="quantity">Quantity</label>
-                    <input name="quantity" title="select quantity" contenteditable="true" type="number" value="1"class="cart-quantity">
+                    <input name="quantity" title="select quantity"  type="number" value="1" class="cart-quantity">
                     </div>
                     <button type="button" id="${product[i].id}" class="bi bi-trash cart-remove" title="delete from cart"></button>
                     </div>
@@ -365,70 +359,26 @@ function showStoredProductsInCart() {
 
 
 //funktion för att ta bort produkter från kassan
-//function removeProduct() {
-    showAddedProducts.addEventListener("click", (event) => {
-        
-        let removeBtn = event.target.closest(".cart-remove");
-        Object.keys(localStorage).forEach(function (key) {
-            let product;
-            product = JSON.parse(localStorage.getItem(key));
-            for(let i= 0; i< product.length; i++) {
-                console.log(product[i].id, removeBtn.id);
-                if (removeBtn.id == product[i].id)
-                
-                localStorage.removeItem(product);
-                showStoredProductsInCart();
-                updateTotalPrice();
+showAddedProducts.addEventListener("click", (event) => {
 
-
+    let removeBtn = event.target.closest(".cart-remove");
+    Object.keys(localStorage).forEach(function (key) {
+        let products;
+        products = JSON.parse(localStorage.getItem(key));
+        for (let i = 0; i < products.length; i++) {
+            console.log(products[i].id, removeBtn.id)
+            let product = (removeBtn.id == products[i].id);
+            console.log(product);
+            if (false) {
+                return;
             }
-        });
+            localStorage.removeItem(product);
+            showStoredProductsInCart();
+            updateTotalPrice();
+        }
     });
-//}
+});
 
-/*
-function showStoredProductsInCart(product) {
-    //Object.keys(localStorage).forEach(function (key) {
-        for (let i = 0; i < localStorage.length; i++) {
-            product = localStorage.key([i]);
-            console.log(product)
-            let productContent = localStorage.getItem(product);
-            console.log(productContent);
-
-            productContent = JSON.parse(productContent);
-            showAddedProducts.innerHTML = productContent;
-            
-            console.log(productContent);
-        }
-    
-        let productId = localStorage.getItem(key);
-        console.log(productContent);
-        if (localStorage == productId) {
-            alert("This product is already added to your cart.")
-        }
-        else if (localStorage.length !== 0) {
-            productContent+=
-            
-            /*`
-                <div class="cart-box">
-                <img src="${productId.image}" alt="${productId.title}" class="cart-img">
-                <div class="detail-box">
-                <div class="cart-title-product">${productId.title}</div>
-                <div class="cart-price">${productId.price}</div>
-                <label for="quantity">Antal</label>
-                <input name="quantity" title="quantity" type="number" value="1" class="cart-quantity">
-                </div>
-                <button type="button"><i id="${productId.id}" class="bi bi-trash cart-remove" title="delete from cart"></i></button>
-                </div>
-                `;
-                showAddedProducts.innerHTML = productContent;
-            }
-            else {
-                showAddedProducts.innerText = "No products added to your cart yet.";
-            }
-   // });
-}
-*/
 //rensa all sparad data i localStorage
 const clearBtn = document.getElementById("btn-clear");
 clearBtn.addEventListener("click", clearLocalStorageAndCart);
@@ -441,10 +391,6 @@ function clearLocalStorageAndCart() {
 }
 
 /*
-//skapa update()- totalpris i cart funktion
-function updateTotalPrice()
-/*
-
 //skicka cart-content för köpet genom post-function
 const buyBtn = document.getElementById("btn-buy");
 buyBtn.addEventListener("click", placeOrder);
