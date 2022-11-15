@@ -37,6 +37,7 @@ categoryBtn.addEventListener("mouseout", function () {
     categoryBtn.style.boxShadow = "none";
 });
 
+const shopTitle = document.querySelector(".section-title");
 let dropdownBtns = document.querySelectorAll(".dropdown-item");
 dropdownBtns.forEach(function (btn) {
     btn.addEventListener("click", function (e) {
@@ -49,6 +50,7 @@ dropdownBtns.forEach(function (btn) {
                 })
                 .then((products) => {
                     showAllProductCards(products);
+                    shopTitle.textContent = "All Products";
                 })
                 .catch((error) => console.error(error));
         }
@@ -61,6 +63,7 @@ dropdownBtns.forEach(function (btn) {
                 })
                 .then(products => {
                     showWomensCategory(products);
+                    shopTitle.textContent = `Products - Women's Clothing`;
                 })
                 .catch((error) => console.error(error));
         }
@@ -73,6 +76,7 @@ dropdownBtns.forEach(function (btn) {
                 })
                 .then(products => {
                     showMensCategory(products);
+                    shopTitle.textContent = `Products - Men's Clothing`;
                 })
                 .catch((error) => console.error(error));
         }
@@ -85,6 +89,7 @@ dropdownBtns.forEach(function (btn) {
                 })
                 .then(products => {
                     showJeweleryCategory(products);
+                    shopTitle.textContent = `Products - Jewelery`;
                 })
                 .catch((error) => console.error(error));
         }
@@ -97,6 +102,8 @@ dropdownBtns.forEach(function (btn) {
                 })
                 .then(products => {
                     showElectronicsCategory(products);
+                    shopTitle.textContent = `Products - Electronics`;
+
                 })
                 .catch((error) => console.error(error));
         }
@@ -245,7 +252,6 @@ closeCartBtn.addEventListener("click", closeCart);
 
 //spara produkter i localstorage vid klick add-to-cart
 const showAddedProducts = document.querySelector(".cart-content");
-//let quantity = document.querySelectorAll(".cart-quantity").values;
 let shoppingCart = [];
 
 productCards.addEventListener("click", (event) => {
@@ -257,35 +263,37 @@ productCards.addEventListener("click", (event) => {
         price: addBtn.previousElementSibling.innerText,
         quantity: 1,
     }
+    const localList = JSON.parse(localStorage.getItem("shoppingCart"));
     if (!addBtn || !productCards.contains(addBtn)) {
         return;
     }
-    else if (JSON.parse(localStorage.getItem("shoppingCart")) === null) {
+
+    if (localStorage.length == 0) {
         shoppingCart.push(product);
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-        window.location.reload();
+        showStoredProductsInCart();
     }
     else {
-        const localList = JSON.parse(localStorage.getItem("shoppingCart"))
-        localList.map(data => {
-            if (product.id == data.id) {
-                shoppingCart.quantity = data.quantity + 1;
+        let alreadyExists = false;
+        for (let i = 0; i < localList.length; i++) {
+            if (product.id == localList[i].id) {
+                alreadyExists = true;
             }
-            else {
-                shoppingCart.push(data);
-                console.log(data)
-            }
-        });
-        shoppingCart.push(product);
-        localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-        window.location.reload();
+        }
+        if (alreadyExists) {
+            alert("This product is already added to your cart. If you want to select a different quantity of the product, visit your cart.");
+        } else {
+            shoppingCart.push(product);
+            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+            showStoredProductsInCart();
+        }
     }
 });
 
 //visa antal tillagda produkter i cart icon
 const cartCount = showCart.querySelector("span");
-let count = 0;
 function showCartCount() {
+    let count = 0;
     if (JSON.parse(localStorage.getItem("shoppingCart")) == null) {
         return;
     }
@@ -294,7 +302,6 @@ function showCartCount() {
     });
     cartCount.innerText = count;
 }
-showCartCount();
 
 //funktion för att uppdatera totalpriset i kassan
 const totalPrice = document.querySelector("#total-price span");
@@ -304,12 +311,12 @@ function updateTotalPrice() {
     Object.keys(localStorage).forEach(function (key) {
         product = JSON.parse(localStorage.getItem(key));
         for (let i = 0; i < product.length; i++) {
-            total += parseFloat(product[i].price) * product[i].quantity;
+            let price = parseFloat(product[i].price);
+            total += price * product[i].quantity;
         }
-        totalPrice.innerHTML = total;
+        totalPrice.innerHTML = total.toFixed(2);
     });
 };
-updateTotalPrice();
 
 /*
 showAddedProducts.addEventListener("click", (event) => {
@@ -325,7 +332,6 @@ showAddedProducts.addEventListener("click", (event) => {
 */
 //visa sparade produkter från localstorage i kassan
 let productBox = document.querySelector(".cart-box");
-
 function showStoredProductsInCart() {
     let product;
     let content = "";
@@ -333,22 +339,22 @@ function showStoredProductsInCart() {
         Object.keys(localStorage).forEach(function (key) {
             product = JSON.parse(localStorage.getItem(key));
             for (let i = 0; i < product.length; i++) {
-                let title = product[i].title.slice(0, 25) + "...";
+                let title = product[i].title.slice(0, 25) + "..";
                 content += `
-                    <div class="cart-box">
-                    <img src="${product[i].image}" alt="${product[i].title}" class="cart-img">
-                    <div class="detail-box">
-                    <div class="cart-title-product">${title}</div>
-                    <div class="cart-price">${product[i].price}</div>
-                    <label class="label-quantity" for="quantity">Quantity</label>
-                    <input name="quantity" title="select quantity"  type="number" value="1" class="cart-quantity">
-                    </div>
-                    <button type="button" id="${product[i].id}" class="bi bi-trash cart-remove" title="delete from cart"></button>
-                    </div>
-                    `;
-
+                <div class="cart-box">
+                <img src="${product[i].image}" alt="${product[i].title}" class="cart-img">
+                <div class="detail-box">
+                <div class="cart-title-product">${title}</div>
+                <div class="cart-price">${product[i].price}</div>
+                <input name="quantity" title="select quantity"  type="number" value="${product[i].quantity}" class="cart-quantity">
+                </div>
+                <button type="button" id="${product[i].id}" class="bi bi-trash cart-remove" title="delete from cart"></button>
+                </div>
+                `;
             }
         });
+        updateTotalPrice();
+        showCartCount();
         showAddedProducts.innerHTML = content;
     }
     else {
@@ -360,23 +366,16 @@ function showStoredProductsInCart() {
 
 //funktion för att ta bort produkter från kassan
 showAddedProducts.addEventListener("click", (event) => {
-
     let removeBtn = event.target.closest(".cart-remove");
-    Object.keys(localStorage).forEach(function (key) {
-        let products;
-        products = JSON.parse(localStorage.getItem(key));
-        for (let i = 0; i < products.length; i++) {
-            console.log(products[i].id, removeBtn.id)
-            let product = (removeBtn.id == products[i].id);
-            console.log(product);
-            if (false) {
-                return;
+    let localList = JSON.parse(localStorage.getItem("shoppingCart"));
+        
+    for (let i = 0; i < localList.length; i++) {
+            if (removeBtn.id === localList[i].id) {
+                let removeProduct = JSON.stringify(localList[i]);
+                localStorage.removeItem(removeProduct);
+                showStoredProductsInCart();
             }
-            localStorage.removeItem(product);
-            showStoredProductsInCart();
-            updateTotalPrice();
         }
-    });
 });
 
 //rensa all sparad data i localStorage
@@ -387,18 +386,27 @@ function clearLocalStorageAndCart() {
     if (confirm("All products in your cart will be removed, are you sure?")) {
         localStorage.clear();
         showStoredProductsInCart();
+        totalPrice.innerHTML = 0;
+        cartCount.innerText = 0;
     }
 }
 
 /*
 //skicka cart-content för köpet genom post-function
-const buyBtn = document.getElementById("btn-buy");
-buyBtn.addEventListener("click", placeOrder);
-
-function placeOrder() {
-  alert("Your order has been placed.");
-}*/
-
+document.querySelector("#btn-buy").addEventListener("click", () => {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+            shoppingCart,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+    .then((response) => response.json())
+    .then((json) => alert(`Your order has been placed!\n${json}`));
+});
+*/
 
 //Funktion för att visa arrow-up vid företagsnamn när man scrollar ner på webbsidan.
 window.addEventListener("scroll", () => {
