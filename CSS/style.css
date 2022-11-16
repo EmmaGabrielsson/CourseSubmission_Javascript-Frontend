@@ -17,6 +17,7 @@
     --text-color: #171427;
     --bg-color: #fff;
     --text-logo: rgb(0, 202, 209);
+    --bg-4-color: rgb(2, 116, 120);
     --bg-2-color: #addbdb32;
     --bg-3-color:#59cdcd61;
 }
@@ -260,6 +261,38 @@ header {
 
 .btn-buy:hover {
     background: var(--buy-btn-hover);
+}
+
+.btn-change {
+    display: flex;
+    margin: 1rem auto;
+    padding: 2px 9px;
+    border: none;
+    background: var(--text-logo);
+    color: var(--bg-color);
+    border-radius: 7px;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.btn-change:hover {
+    background: var(--bg-4-color);
+}
+
+.btn-delete {
+    display: flex;
+    margin: 1rem auto;
+    padding: 2px 9px;
+    border: none;
+    background: var(--text-logo);
+    color: var(--bg-color);
+    border-radius: 7px;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: var(--bg-4-color);
 }
 
 #btn-clear {
