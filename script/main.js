@@ -300,7 +300,7 @@ productCards.addEventListener("click", (event) => {
 
 //visa antal tillagda produkter i cart icon
 const cartCount = showCart.querySelector("span");
-function showCartCount() {
+export function showCartCount() {
     let count = 0;
     if (JSON.parse(localStorage.getItem("shoppingCart")) == null) {
         return;
@@ -313,7 +313,7 @@ function showCartCount() {
 
 //funktion för att uppdatera totalpriset i kassan
 const totalPrice = document.querySelector("#total-price span");
-function updateTotalPrice() {
+export function updateTotalPrice() {
     let total = 0;
     let product;
     Object.keys(localStorage).forEach(function (key) {
@@ -348,8 +348,7 @@ showAddedProducts.addEventListener("click", (event) => {
 });
 
 //visa sparade produkter från localstorage i kassan
-let productBox = document.querySelector(".cart-box");
-function showStoredProductsInCart() {
+export function showStoredProductsInCart() {
     let product;
     let content = "";
     if (localStorage.length !== 0) {

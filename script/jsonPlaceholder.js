@@ -1,3 +1,5 @@
+import {showStoredProductsInCart} from "./main.js";
+
 //skicka cart-content för köpet genom POST-request
 document.querySelector(".btn-buy").addEventListener("click", () => {
     fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -17,6 +19,8 @@ document.querySelector(".btn-buy").addEventListener("click", () => {
         .then((response) => response.json())
         .then((json) => console.log(json),
             alert(`Your order has been placed/posted to JSONPlaceholder server!`));
+            localStorage.clear();
+            showStoredProductsInCart();
 });
 
 //ändrar message i en PUT-request, dock kan inte samma id hittas då den inte kan spara min POST på servern. Se consoll för response.
