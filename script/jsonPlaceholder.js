@@ -1,4 +1,4 @@
-import {showStoredProductsInCart} from "./main.js";
+import {showStoredProductsInCart, totalPrice, cartCount} from "./main.js";
 
 //skicka cart-content för köpet genom POST-request
 document.querySelector(".btn-buy").addEventListener("click", () => {
@@ -21,6 +21,8 @@ document.querySelector(".btn-buy").addEventListener("click", () => {
             alert(`Your order has been placed/posted to JSONPlaceholder server!`));
             localStorage.clear();
             showStoredProductsInCart();
+            totalPrice.innerHTML = 0;
+            cartCount.innerText = 0;
 });
 
 //ändrar message i en PUT-request, dock kan inte samma id hittas då den inte kan spara min POST på servern. Se consoll för response.
@@ -53,6 +55,6 @@ fetch('https://jsonplaceholder.typicode.com/posts/1', {
 })
 .then((response) => response.json())
 .then((json) => console.log(json)),
-alert(`Raderar min order från servern. Se consoll för response.`);
+alert(`Raderar min ändrade (put-request) order från servern. Se consoll för response.`);
 ;
 });

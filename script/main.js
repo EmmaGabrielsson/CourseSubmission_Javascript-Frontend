@@ -299,7 +299,7 @@ productCards.addEventListener("click", (event) => {
 });
 
 //visa antal tillagda produkter i cart icon
-const cartCount = showCart.querySelector("span");
+export const cartCount = showCart.querySelector("span");
 export function showCartCount() {
     let count = 0;
     if (JSON.parse(localStorage.getItem("shoppingCart")) == null) {
@@ -312,7 +312,7 @@ export function showCartCount() {
 }
 
 //funktion för att uppdatera totalpriset i kassan
-const totalPrice = document.querySelector("#total-price span");
+export const totalPrice = document.querySelector("#total-price span");
 export function updateTotalPrice() {
     let total = 0;
     let product;
