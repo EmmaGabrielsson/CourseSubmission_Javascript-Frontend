@@ -1,64 +1,67 @@
 <!DOCTYPE html>
-<html lang="sv">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="keywords" content="" />
-  <meta name="description"
-    content="En typ av webbshop, som från ett API visar på en dynamisk och strukturerad webbsida i kursen Javascript-Frontend." />
-  <meta name="author" content="Emma Gabrielsson" />
-  <title>Webbshop JS-Fe</title>
-  <link rel="icon" href="img/" type="image/x-icon" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+    content="This is a dynamically controlled web page, a webshop that display products with five relevant properties in a gallery fetched from an open API." />
+    <meta name="author" content="Emma Gabrielsson" />
+    <title>Webbshop</title>
+    <link rel="icon" href="img/e.png" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
-  <link rel="stylesheet" href="CSS/style.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="CSS/style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <script defer type="module" src="script/main.js"></script>
 </head>
-
-<body>
+<body id="top">
   <header>
     <nav class="nav container">
-      <a href="#" class="logo">Webbshoppen</a>
-      <i class="bx bx-shopping-bag" id="cart-icon"></i>
+      <a href="#top" class="logo"><img title="Emmas Webbshop" src="img/e.png" alt="logga format som ett E">mmas Webbshop
+        <i class="bi bi-arrow-up"></i></a>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" aria-expanded="false">
+          Categories
+        </button>
+        <ul class="dropdown-menu-container" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" id="show-all" href="#">Show All Products</a></li>
+          <li><a class="dropdown-item" id="w-clothing" href="#">Women's Clothing</a></li>
+          <li><a class="dropdown-item" id="m-clothing" href="#">Men's Clothing</a></li>
+          <li><a class="dropdown-item" id="jewelery" href="#">Jewelery</a></li>
+          <li><a class="dropdown-item" id="electronics" href="#">Electronics</a></li>
+        </ul>
+        <i class="bi bi-cart" id="cart-icon" title="Open Cart"><span>0</span></i>
+      </div>
       <div class="cart">
         <h2 class="cart-title">Your Cart</h2>
         <div class="cart-content">
-          <div class="cart-box">
-            <img src="" alt="" class="cart-img">
-            <div class="detail-box">
-              <div class="cart-title-product">ee</div>
-              <div class="cart-price"></div>
-              <input type="number" value="1" class="cart-quantity">
-            </div>
-            <i class="bx bxs-trash-alt cart-remove"></i>
-          </div>
         </div>
         <div class="total">
           <div class="total-title">Total</div>
-          <div class="total-price">0 kr</div>
+          <div id="total-price">: <span>0</span> sek</div>
         </div>
-        <button type="button" class="btn-buy">Buy Now</button>
-        <i class="bx bx-x" id="close-cart"></i>
+        <button type="button" class="btn-buy">Buy Now <span class="request">/Post-Request</span></button>
+        <button type="button" class="btn-change">Change order message <span class="request">/Put-Request</span></button>
+        <button type="button" class="btn-delete">Delete order <span class="request">/Delete-Request</span></button>
+        <button type="button" id="btn-clear">Clear Cart</button>
+        <i class="bi bi-x" id="close-cart" title="Close Cart"></i>
       </div>
     </nav>
   </header>
   <section class="shop container">
-    <h2 class="section-title">Shop Products</h2>
+    <h2 class="section-title">Products</h2>
     <div class="shop-content">
-
-      <div class="product-box">
-        <img src="" alt="" class="product-img">
-        <h2 class="product-title">produkt</h2>
-        <span class="price">0 kr</span>
-        <i class="bx bx-shopping-bag add-cart">buy</i>
-      </div>
-
     </div>
   </section>
-
-  <script defer type="module" src="script/main.js"></script>
+  <div class="view-large-img">
+    <i class="bi bi-x close-large-view" title="Close"></i>
+    <img class="view-img" src="" alt="img-product">
+  </div>
+  <footer>
+    <p>Javascript Frontend</p>
+    <p>2022</p>
+  </footer>
 </body>
 
 </html>
